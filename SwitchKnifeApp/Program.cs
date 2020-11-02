@@ -6,7 +6,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|unused_resource");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -28,7 +28,15 @@ namespace SwitchKnifeApp
                     var e2 = new CsprojStructure();
                     e2.FindFilesNotPresent(filesFolder, csprojFile);
                     break;
-                
+                case "unused_resource":
+                    Console.WriteLine("project folder:");
+                    var projectFolder = Console.ReadLine();
+                    Console.WriteLine("resource folder:");
+                    var resourceFolder = Console.ReadLine();
+                    var e3 = new ResourceToProject();
+                    e3.SetArguments(projectFolder, resourceFolder);
+                    e3.Execute();
+                    break;
             }
         }
     }
