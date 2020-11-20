@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SwitchKnifeApp.csv;
+using SwitchKnifeApp.csv.opration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SwitchKnifeApp
 {
@@ -6,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -54,6 +58,34 @@ namespace SwitchKnifeApp
                     Console.WriteLine("limit:");
                     var limit1 = int.Parse(Console.ReadLine());
                     new CsvSplitter().Execute(csvFile1, outputFolder1, limit1);
+                    break;
+                case "csv-change":
+                    Console.WriteLine("input folder:");
+                    var inputFolder2 = Console.ReadLine();
+                    Console.WriteLine("output folder:");
+                    var outputFolder2 = Console.ReadLine();
+                    Console.WriteLine("headers:");
+                    var headers = Console.ReadLine().Split(',').ToList();
+                    Console.WriteLine("move from:");
+                    var moveFrom = Console.ReadLine().Split(',').Select(int.Parse);
+                    Console.WriteLine("move to:");
+                    var moveTo = Console.ReadLine().Split(',').Select(int.Parse).ToArray();
+                    Console.WriteLine("shrink from:");
+                    var shrinkFrom = int.Parse(Console.ReadLine());
+                    Console.WriteLine("shrink to:");
+                    var shrinkTo = int.Parse(Console.ReadLine());
+                    new CsvChange().Execute(
+                        inputFolder2, 
+                        outputFolder2, 
+                        new Change 
+                        { 
+                            Header = new Header 
+                            { 
+                                Names = headers
+                            },
+                            Moves = moveFrom.Select((mt, i) => new Move { FromColumn = mt, ToColumn = moveTo[i] }).ToList(),
+                            Shrink = new Shrink { StartColumn = shrinkFrom, EndColumn = shrinkTo }
+                        });
                     break;
             }
         }

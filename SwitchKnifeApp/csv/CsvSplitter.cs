@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Text;
 
-namespace SwitchKnifeApp
+namespace SwitchKnifeApp.csv
 {
     public class CsvSplitter
     {
@@ -15,7 +12,7 @@ namespace SwitchKnifeApp
             lines = lines.Skip(1);
             for (var i = 0; i < lines.Count() / limit; i++)
             {
-                File.WriteAllLines(Path.Combine(outputFolder, i + ".csv"), new string[] { header}.Union( lines.Skip(i * limit).Take(limit)));
+                File.WriteAllLines(Path.Combine(outputFolder, i + ".csv"), new string[] { header }.Union(lines.Skip(i * limit).Take(limit)));
             }
         }
     }
