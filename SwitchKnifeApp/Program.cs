@@ -6,7 +6,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -45,6 +45,15 @@ namespace SwitchKnifeApp
                     var e4 = new FileReomover();
                     e4.SetArguments(removeFile, resourceFolder1);
                     e4.Execute();
+                    break;
+                case "csv_splitter":
+                    Console.WriteLine("csv file:");
+                    var csvFile1 = Console.ReadLine();
+                    Console.WriteLine("output folder:");
+                    var outputFolder1 = Console.ReadLine();
+                    Console.WriteLine("limit:");
+                    var limit1 = int.Parse(Console.ReadLine());
+                    new CsvSplitter().Execute(csvFile1, outputFolder1, limit1);
                     break;
             }
         }
