@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace SwitchKnifeApp.csv
 {
@@ -13,7 +14,8 @@ namespace SwitchKnifeApp.csv
             foreach(var file in files)
             {
                 var lines = File.ReadAllLines(file);
-                var cells = lines.Select(l => l.Split(',')).ToArray();
+                //parser: https://www.iditect.com/how-to/50632450.html
+                var cells = lines.Select(l => Regex.Split(l, ",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))").ToArray()).ToArray();
                 foreach (var move in change.Moves)
                 {
                     for (int i = 0; i < lines.Length; i++)
@@ -34,7 +36,7 @@ namespace SwitchKnifeApp.csv
                     partition.Add(cells[i].Skip(change.Shrink.StartColumn).Take(change.Shrink.EndColumn - change.Shrink.StartColumn + 1).ToList());
                 }
 
-                var output = partition.Select(p => string.Join(",", p.Select(v => "\"" + v+"\"")));
+                var output = partition.Select(p => string.Join(",", p.Select(v => v.StartsWith("\"") ? v : "\"" + v+"\"")));
                 File.WriteAllLines(Path.Combine(outputFolder, Path.GetFileName(file)), output);
             }
         }
