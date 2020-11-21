@@ -10,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -86,6 +86,17 @@ namespace SwitchKnifeApp
                             Moves = moveFrom.Select((mt, i) => new Move { FromColumn = mt, ToColumn = moveTo[i] }).ToList(),
                             Shrink = new Shrink { StartColumn = shrinkFrom, EndColumn = shrinkTo }
                         });
+                    break;
+                case "csv-validate-keys":
+                    Console.WriteLine("input folder:");
+                    var inputFolder3 = Console.ReadLine();
+                    Console.WriteLine("input column:");
+                    var inputColumn1 = int.Parse(Console.ReadLine());
+                    Console.WriteLine("output folder:");
+                    var outputFolder3 = Console.ReadLine();
+                    Console.WriteLine("output column:");
+                    var outputColumn1 = int.Parse(Console.ReadLine());
+                    new CsvValidateKeys().Execute(inputFolder3, inputColumn1, outputFolder3, outputColumn1);
                     break;
             }
         }
