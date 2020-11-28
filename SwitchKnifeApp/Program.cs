@@ -1,7 +1,6 @@
 ﻿using SwitchKnifeApp.csv;
 using SwitchKnifeApp.csv.opration;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace SwitchKnifeApp
@@ -10,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -97,6 +96,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("output column:");
                     var outputColumn1 = int.Parse(Console.ReadLine());
                     new CsvValidateKeys().Execute(inputFolder3, inputColumn1, outputFolder3, outputColumn1);
+                    break;
+                case "csv-merge":
+                    Console.WriteLine("input folder:");
+                    var inputFolder4 = Console.ReadLine();
+                    Console.WriteLine("output file:");
+                    var outputFolder4 = Console.ReadLine();
+                    new CvsMerge().Execute(inputFolder4, outputFolder4);
                     break;
             }
         }
