@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -101,8 +101,15 @@ namespace SwitchKnifeApp
                     Console.WriteLine("input folder:");
                     var inputFolder4 = Console.ReadLine();
                     Console.WriteLine("output file:");
-                    var outputFolder4 = Console.ReadLine();
-                    new CvsMerge().Execute(inputFolder4, outputFolder4);
+                    var outputFile4 = Console.ReadLine();
+                    new CvsMerge().Execute(inputFolder4, outputFile4);
+                    break;
+                case "char-case":
+                    Console.WriteLine("input file:");
+                    var inputFile5 = Console.ReadLine();
+                    Console.WriteLine("output file:");
+                    var outputFile5 = Console.ReadLine();
+                    new CharCase().Execute(inputFile5, outputFile5);
                     break;
             }
         }
