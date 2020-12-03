@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -110,6 +110,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("output file:");
                     var outputFile5 = Console.ReadLine();
                     new CharCase().Execute(inputFile5, outputFile5);
+                    break;
+                case "lsh-serach":
+                    Console.WriteLine("file 1:");
+                    var file6_1 = Console.ReadLine();
+                    Console.WriteLine("file 2:");
+                    var file6_2 = Console.ReadLine();
+                    new LSHFileCompare().Execute(file6_1, file6_2);
                     break;
             }
         }
