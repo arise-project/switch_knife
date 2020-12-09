@@ -9,4 +9,16 @@
     <PackageReference Include="String.Similarity" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="en_1000.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="en_except.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="words_alpha.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

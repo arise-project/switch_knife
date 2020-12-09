@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -121,10 +121,18 @@ namespace SwitchKnifeApp
                 case "resx-key":
                     Console.WriteLine("input folder:");
                     var inputFolder7 = Console.ReadLine();
-                    Console.WriteLine("file 1:");
+                    Console.WriteLine("search file:");
                     var file7 = Console.ReadLine();
                     new FindResxKey().Execute(inputFolder7, file7);
                     break;
+                case "en-words":
+                    Console.WriteLine("input folder:");
+                    var inputFolder8 = Console.ReadLine();
+                    Console.WriteLine("output file:");
+                    var file8 = Console.ReadLine();
+                    new EnglishWords().Execute(inputFolder8, file8);
+                    break;
+
             }
         }
     }

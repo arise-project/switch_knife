@@ -15,9 +15,10 @@ namespace SwitchKnifeApp
 
             var lines = File.ReadAllLines(searchFile);
             var l = new Levenshtein();
-            List<KeyValuePair<string, string>> found = new List<KeyValuePair<string, string>>();
+            
             foreach (var file in files)
             {
+                List<KeyValuePair<string, string>> found = new List<KeyValuePair<string, string>>();
                 XmlReader reader = XmlReader.Create(file);
 
                 string key = null;
@@ -58,21 +59,15 @@ namespace SwitchKnifeApp
                                     break;
                             }
                             break;
-                        case XmlNodeType.Text:
-                            //Console.WriteLine("Text Node: {0}",
-                            //await reader.GetValueAsync());
-                            break;
-                        case XmlNodeType.EndElement:
-                            //Console.WriteLine("End Element {0}", reader.Name);
-                            break;
-                        default:
-                            //Console.WriteLine("Other node {0} with value {1}",
-                            //reader.NodeType, reader.Value);
-                            break;
                     }
                 }
 
-                File.WriteAllLines(searchFile + ".found", found.Select(pair => string.Format("{0} : {1}", pair.Key, pair.Value)));
+                if(found.Count > 0)
+                {
+                    var output = searchFile + ".found";
+                    File.AppendAllText(output, Path.GetFileName(file));
+                    File.AppendAllLines(output, found.Select(pair => string.Format("{0} : {1}", pair.Key, pair.Value)));
+                }
             }
         }
     }
