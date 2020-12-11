@@ -21,8 +21,8 @@ namespace SwitchKnifeApp
             foreach (var file in files)
             {
                 XmlDocument localeDoc = new XmlDocument();
-                doc.Load(file);
-                XmlNode localeRoot = doc.DocumentElement;
+                localeDoc.Load(file);
+                XmlNode localeRoot = localeDoc.DocumentElement;
 
 
                 XmlNodeList nodes = root.SelectNodes($"descendant::data");
