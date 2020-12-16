@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -154,6 +154,15 @@ namespace SwitchKnifeApp
                     Console.WriteLine("locale file:");
                     var localeFile = Console.ReadLine();
                     new ResxDots().Execute(originalFile, localeFile);
+                    break;
+                case "resx-excepts":
+                    Console.WriteLine("original file:");
+                    var originalFile1 = Console.ReadLine();
+                    Console.WriteLine("locale file:");
+                    var localeFile1 = Console.ReadLine();
+                    Console.WriteLine("except file:");
+                    var localeFile11 = Console.ReadLine();
+                    new ResxExcepts().Execute(originalFile1, localeFile1, localeFile11);
                     break;
             }
         }
