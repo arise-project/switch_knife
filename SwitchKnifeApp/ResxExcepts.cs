@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace SwitchKnifeApp
@@ -9,7 +10,7 @@ namespace SwitchKnifeApp
     {
         public void Execute(string originalFile, string localeFile, string exceptFile)
         {
-            var except = File.ReadAllLines(exceptFile).Select(e => e.Trim()).Where(e => !string.IsNullOrWhiteSpace(e));
+            var except = File.ReadAllLines(exceptFile).Select(e => e.Trim()).Where(e => !string.IsNullOrWhiteSpace(e)).OrderByDescending(e => e);
             XmlDocument doc = new XmlDocument();
             doc.Load(originalFile);
             XmlNode root = doc.DocumentElement;
@@ -27,6 +28,10 @@ namespace SwitchKnifeApp
                     continue;
                 }
                 var text1 = node.ChildNodes[1].ChildNodes[0].Value;
+                if(text1.Trim().StartsWith("https") && !text1.Trim().Contains(" "))
+                {
+                    continue;
+                }
                 var e1 = except.Where(e => text1.IndexOf(e, System.StringComparison.OrdinalIgnoreCase) != -1);
 
                 XmlNode myNode = localeRoot.SelectSingleNode($"/root/data[@name='{key}']");
@@ -38,15 +43,26 @@ namespace SwitchKnifeApp
                     var diff = e1.Intersect(e2).ToArray();
                     if (diff.Length > 0)
                     {
-                        char c = 'A';
                         int index = 0;
+                        string text3 = text1;
                         foreach(var e in except)
                         {
-                            text1 = text1.Replace(e, c++.ToString() + index++.ToString(), StringComparison.OrdinalIgnoreCase);
+                            if(e != "{0}" && e != "{1}")
+                            {
+                                var r1 = new Regex(@"\b" + e + @"\b", RegexOptions.IgnoreCase);
+                                text3 = r1.Replace(text3, index++.ToString("X8"));
+                                //text3 = text3.Replace(e, index++.ToString("X8"), StringComparison.OrdinalIgnoreCase);
+                            }
+                            else
+                            {
+                                text3 = text3.Replace(e, index++.ToString("X8"));
+                            }
                         }
-                        File.AppendAllLines(Path.Combine(Path.GetDirectoryName(exceptFile), "replace.txt"), 
-                            new string[] { string.Format("{0},,\"{1}\"", key, text1.Replace("\"", "\"\"")) });
-
+                        if(text3 != text1)
+                        {
+                            File.AppendAllLines(Path.Combine(Path.GetDirectoryName(exceptFile), "replace.txt"),
+                            new string[] { string.Format("{0},,\"{1}\"", key, text3.Replace("\"", "\"\"")) });
+                        }
                     }
                 }
             }
