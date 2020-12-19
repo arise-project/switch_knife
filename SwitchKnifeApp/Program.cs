@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -170,6 +170,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("except file:");
                     var exceptFile2 = Console.ReadLine();
                     new RestoreExcepts().Execute(file12, exceptFile2);
+                    break;
+                case "csv-add-col":
+                    Console.WriteLine("csv file:");
+                    var csvFile = Console.ReadLine();
+                    Console.WriteLine("column file:");
+                    var columnFile = Console.ReadLine();
+                    new CsvAddCol().Execute(csvFile, columnFile);
                     break;
             }
         }
