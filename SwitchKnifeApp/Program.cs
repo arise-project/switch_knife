@@ -9,7 +9,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -186,6 +186,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("output file:");
                     var outputFile1 = Console.ReadLine();
                     new ResxRepeatedChars().Execute(resourceFile1, seqLength, outputFile1);
+                    break;
+                case "css-selectors":
+                    Console.WriteLine("html file:");
+                    var htmlFile1 = Console.ReadLine();
+                    Console.WriteLine("options:");
+                    var options1 = Console.ReadLine();
+                    new CssSelectors().Execute(htmlFile1, options1);
                     break;
             }
         }
