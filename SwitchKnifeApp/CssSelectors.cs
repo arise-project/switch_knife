@@ -13,7 +13,8 @@ namespace SwitchKnifeApp
             All,
             Used,
             Find,
-            Media
+            Media,
+            Details
         }
 
         public void Execute(string htmlFile, string optionsStr)
@@ -23,6 +24,7 @@ namespace SwitchKnifeApp
             var parser = new StylesheetParser();
             Options options = Options.All;
             string node = null;
+            string selector = null;
             if(optionsStr == "all")
             {
                 options = Options.All;
@@ -38,6 +40,11 @@ namespace SwitchKnifeApp
             } else if (optionsStr == "media")
             {
                 options = Options.Media;
+            }
+            else if (optionsStr.StartsWith("details "))
+            {
+                options = Options.Details;
+                selector = optionsStr.Substring("details ".Length);
             }
 
             foreach (var data in doc.DocumentNode.Descendants("style"))
@@ -86,6 +93,12 @@ namespace SwitchKnifeApp
                             }
                             catch (Exception)
                             {
+                            }
+                        } else if(options == Options.Details)
+                        {
+                            if(styleRule.Selector.Text.Contains(selector))
+                            {
+                                Console.WriteLine(styleRule.Text);
                             }
                         }
                     }
