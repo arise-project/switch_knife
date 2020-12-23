@@ -13,7 +13,7 @@ namespace SwitchKnifeApp
             {
                 if(cells.Length > i)
                 {
-                    rows[i] = rows[i] + ",\"" + cells[i] + "\"";
+                    rows[i] = rows[i] + ",\"" + cells[i].Replace("\"", "\"\"") + "\"";
                 }
             }
 
