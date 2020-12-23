@@ -12,7 +12,8 @@ namespace SwitchKnifeApp
         {
             All,
             Used,
-            Find
+            Find,
+            Media
         }
 
         public void Execute(string htmlFile, string optionsStr)
@@ -34,44 +35,58 @@ namespace SwitchKnifeApp
             {
                 options = Options.Find;
                 node = optionsStr.Substring("find ".Length);
+            } else if (optionsStr == "media")
+            {
+                options = Options.Media;
             }
 
             foreach (var data in doc.DocumentNode.Descendants("style"))
             {
                 var stylesheet = parser.Parse(data.InnerHtml);
-                foreach (var item in stylesheet.StyleRules)
+                if (options == Options.Media)
                 {
-                    var styleRule = item as StyleRule;
-                    if(options == Options.All)
+                    foreach (var item in stylesheet.MediaRules)
                     {
-                        Console.WriteLine(styleRule.Selector.Text);
+                        var mediaRule = item as IMediaRule;
+                        Console.WriteLine(mediaRule.ConditionText);
                     }
-                    else if (options == Options.Used)
+                }
+                else
+                {
+                    foreach (var item in stylesheet.StyleRules)
                     {
-                        try
+                        var styleRule = item as StyleRule;
+                        if (options == Options.All)
                         {
-                            if (doc.DocumentNode.QuerySelector(styleRule.Selector.Text) != null)
+                            Console.WriteLine(styleRule.Selector.Text);
+                        }
+                        else if (options == Options.Used)
+                        {
+                            try
                             {
-                                Console.WriteLine(styleRule.Selector.Text);
+                                if (doc.DocumentNode.QuerySelector(styleRule.Selector.Text) != null)
+                                {
+                                    Console.WriteLine(styleRule.Selector.Text);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(styleRule.Selector.Text + " : " + ex.Message);
                             }
                         }
-                        catch(Exception ex)
+                        else if (options == Options.Find)
                         {
-                            Console.WriteLine(styleRule.Selector.Text + " : " + ex.Message);
-                        }
-                    }
-                    else if (options == Options.Find)
-                    {
-                        try
-                        {
-                            var nodes = doc.DocumentNode.QuerySelectorAll(styleRule.Selector.Text);
-                            if (nodes.Any(n => n.OuterHtml.Contains(node)))
+                            try
                             {
-                                Console.WriteLine(styleRule.Selector.Text);
+                                var nodes = doc.DocumentNode.QuerySelectorAll(styleRule.Selector.Text);
+                                if (nodes.Any(n => n.OuterHtml.Contains(node)))
+                                {
+                                    Console.WriteLine(styleRule.Selector.Text);
+                                }
                             }
-                        }
-                        catch (Exception)
-                        {   
+                            catch (Exception)
+                            {
+                            }
                         }
                     }
                 }
