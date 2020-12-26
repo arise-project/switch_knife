@@ -10,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -208,6 +208,15 @@ namespace SwitchKnifeApp
                     Console.WriteLine("source folder:");
                     var sourceFolder = Console.ReadLine();
                     new PageCopy().Execute(listFile2, sourceFolder, Path.GetDirectoryName(listFile2));
+                    break;
+                case "patch-html":
+                    Console.WriteLine("html folder:");
+                    var folder = Console.ReadLine();
+                    Console.WriteLine("operation:");
+                    var operation = Console.ReadLine();
+                    Console.WriteLine("patch:");
+                    var patch = Console.ReadLine();
+                    new PatchHtml().Execute(folder, operation, patch);
                     break;
             }
         }

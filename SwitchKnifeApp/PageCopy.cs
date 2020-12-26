@@ -19,7 +19,7 @@ namespace SwitchKnifeApp
                     var sourceFile = Path.Combine(sourceFolder, parse.Item1, parse.Item2, parse.Item3 + ".html");
                     var destFile = Path.Combine(destFolder, parse.Item1, parse.Item2, parse.Item3 + ".html");
 
-                    if (File.Exists(sourceFile))
+                    if (File.Exists(sourceFile) && new FileInfo(sourceFile).Length > 100)
                     {
                         Directory.CreateDirectory(Path.Combine(destFolder, parse.Item1, parse.Item2));
                         if (!File.Exists(destFile) ||
@@ -38,7 +38,7 @@ namespace SwitchKnifeApp
                     var sourceFile = Path.Combine(sourceFolder, parse.Item1, parse.Item2 + ".html");
                     var destFile = Path.Combine(destFolder, parse.Item1, parse.Item2 + ".html");
 
-                    if (File.Exists(sourceFile))
+                    if (File.Exists(sourceFile) && new FileInfo(sourceFile).Length > 100)
                     {
                         if (!File.Exists(destFile) ||
                             new FileInfo(destFile).Length < 100)
