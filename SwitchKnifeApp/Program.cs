@@ -1,6 +1,7 @@
 ﻿using SwitchKnifeApp.csv;
 using SwitchKnifeApp.csv.opration;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace SwitchKnifeApp
@@ -9,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -193,6 +194,20 @@ namespace SwitchKnifeApp
                     Console.WriteLine("options:");
                     var options1 = Console.ReadLine();
                     new CssSelectors().Execute(htmlFile1, options1);
+                    break;
+                case "page-folders":
+                    Console.WriteLine("list file:");
+                    var listFile1 = Console.ReadLine();
+                    Console.WriteLine("output folder:");
+                    var outputFolder4 = Console.ReadLine();
+                    new PageFolders().Execute(listFile1, outputFolder4);
+                    break;
+                case "page-copy":
+                    Console.WriteLine("list file:");
+                    var listFile2 = Console.ReadLine();
+                    Console.WriteLine("source folder:");
+                    var sourceFolder = Console.ReadLine();
+                    new PageCopy().Execute(listFile2, sourceFolder, Path.GetDirectoryName(listFile2));
                     break;
             }
         }
