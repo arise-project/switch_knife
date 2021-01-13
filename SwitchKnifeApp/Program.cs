@@ -10,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html|resx-missmatch");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -217,6 +217,15 @@ namespace SwitchKnifeApp
                     Console.WriteLine("patch:");
                     var patch = Console.ReadLine();
                     new PatchHtml().Execute(folder, operation, patch);
+                    break;
+                case "resx-missmatch":
+                    Console.WriteLine("folder:");
+                    var folder11 = Console.ReadLine();
+                    Console.WriteLine("original file:");
+                    var file11 = Console.ReadLine();
+                    Console.WriteLine("pattern:");
+                    var pattern1 = Console.ReadLine();
+                    new ResxMissmatch().Execute(folder11, file11, pattern1);
                     break;
             }
         }
