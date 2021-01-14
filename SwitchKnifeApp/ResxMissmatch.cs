@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -7,9 +8,10 @@ namespace SwitchKnifeApp
 {
     public class ResxMissmatch
     {
-        public void Execute(string folder, string originalFile, string pattern)
+        public void Execute(string folder, string originalFile, string exceptFile, string pattern)
         {
             var files = Directory.GetFiles(folder, "*.resx", SearchOption.AllDirectories);
+            var except = File.ReadAllLines(exceptFile);
 
             XmlDocument doc = new XmlDocument();
             doc.Load(originalFile);
@@ -31,6 +33,10 @@ namespace SwitchKnifeApp
                 {
                     var node = nodes[i];
                     var key = node.Attributes["name"].Value;
+                    if(except.Contains(key))
+                    {
+                        continue;
+                    }
                     if (node.ChildNodes.Count != 3 || node.ChildNodes[1].ChildNodes.Count != 1)
                     {
                         continue;
@@ -46,7 +52,7 @@ namespace SwitchKnifeApp
                             var text2 = myNode.ChildNodes[1].ChildNodes[0].Value;
                             var url2 = urlPattern.Match(text2).Value;
 
-                            if (!string.Equals(url1, url2))
+                            if (!string.Equals(url1, url2, StringComparison.InvariantCultureIgnoreCase))
                             {
                                 Console.WriteLine("{0}: '{1}' but {2} - '{3}'", key, url1, Path.GetFileName(file), url2);
                                 if(!string.IsNullOrEmpty(url2))

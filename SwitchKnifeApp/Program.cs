@@ -223,9 +223,11 @@ namespace SwitchKnifeApp
                     var folder11 = Console.ReadLine();
                     Console.WriteLine("original file:");
                     var file11 = Console.ReadLine();
+                    Console.WriteLine("except file:");
+                    var exceptFile11 = Console.ReadLine();
                     Console.WriteLine("pattern:");
                     var pattern1 = Console.ReadLine();
-                    new ResxMissmatch().Execute(folder11, file11, pattern1);
+                    new ResxMissmatch().Execute(folder11, file11, exceptFile11, pattern1);
                     break;
             }
         }
