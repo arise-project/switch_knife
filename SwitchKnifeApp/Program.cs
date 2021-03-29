@@ -10,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html|resx-missmatch|page-links|file-download");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html|resx-missmatch|page-links|file-download|css-remove-selector");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -238,6 +238,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("url:");
                     var url = Console.ReadLine();
                     new FileDownloader().Execute(url);
+                    break;
+                case "css-remove-selector":
+                    Console.WriteLine("css file:");
+                    var cssFile = Console.ReadLine();
+                    Console.WriteLine("exclude file:");
+                    var excludeFile = Console.ReadLine();
+                    new CssRemoveSelector().Execute(cssFile, excludeFile);
                     break;
             }
         }
