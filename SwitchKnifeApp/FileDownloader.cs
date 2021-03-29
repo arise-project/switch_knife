@@ -15,14 +15,16 @@ namespace SwitchKnifeApp
             {
                 var s = reader.Scheme;
                 var h = reader.Host;
-                var p = reader.Path.Split('/').Skip(3).First();
-
-                var builder = new UriBuilder();
-                builder.Scheme = s;
-                builder.Host = h;
-                builder.Path = "uc";
-                builder.Query = "export=download&id=" + p;
-                url = builder.Uri.AbsoluteUri;
+                var p = reader.Path.Split('/').Skip(3).FirstOrDefault();
+                if(!string.IsNullOrEmpty(p))
+                {
+                    var builder = new UriBuilder();
+                    builder.Scheme = s;
+                    builder.Host = h;
+                    builder.Path = "uc";
+                    builder.Query = "export=download&id=" + p;
+                    url = builder.Uri.AbsoluteUri;
+                }
             }
             else if (reader.Host.Contains("dropbox.com"))
             {
@@ -33,9 +35,17 @@ namespace SwitchKnifeApp
             var net = new WebClient();
             var data = net.DownloadData(url);
             
-            string header = net.ResponseHeaders["Content-Disposition"] ?? string.Empty;
-            ContentDisposition contentDisposition = new ContentDisposition(header);
-            string filename = contentDisposition.FileName;
+            string header = net.ResponseHeaders["Content-Disposition"];
+            string filename;
+            if (header != null)
+            {
+                ContentDisposition contentDisposition = new ContentDisposition(header);
+                filename = contentDisposition.FileName;
+            }
+            else
+            {
+                filename = Guid.NewGuid().ToString() + ".html";
+            }
 
             var content = new MemoryStream(data);
             using (var fs = new FileStream(filename, FileMode.Create))
