@@ -10,7 +10,7 @@ namespace SwitchKnifeApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html|resx-missmatch|page-links|file-download|css-remove-selector|quoted-text");
+            Console.WriteLine("map_test_to_class|csproj_find_not_present_file|file_remover|csv_splitter|csv-change|csv-validate-keys|csv-merge|char-case|lsh-serach|resx-key|en-words|resx-patch|resx-format|resx-dots|resx-excepts|restore-except|csv-add-col|resx-repeat-seq|css-selectors|page-folders|page-copy|patch-html|resx-missmatch|page-links|file-download|css-remove-selector|quoted-text|sitemap-test");
             var choice = Console.ReadLine();
 
             switch(choice)
@@ -250,6 +250,13 @@ namespace SwitchKnifeApp
                     Console.WriteLine("file:");
                     var file = Console.ReadLine();
                     new QuotedText().Execute(file);
+                    break;
+                case "sitemap-test":
+                    Console.WriteLine("sitemap:");
+                    var sitemap = Console.ReadLine();
+                    Console.WriteLine("timeout:");
+                    var timeout = int.Parse(Console.ReadLine());
+                    new SitemapTest().Execute(sitemap, timeout);
                     break;
             }
         }

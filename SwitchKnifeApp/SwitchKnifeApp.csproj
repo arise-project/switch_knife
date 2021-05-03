@@ -9,6 +9,8 @@
     <PackageReference Include="ExCSS-Core" Version="4.0.5" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.29" />
     <PackageReference Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.2.1" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="90.0.4430.2400" />
     <PackageReference Include="String.Similarity" Version="3.0.0" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
