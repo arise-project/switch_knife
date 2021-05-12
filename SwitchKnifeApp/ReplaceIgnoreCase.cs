@@ -34,7 +34,15 @@ namespace SwitchKnifeApp
                 }
                 while (index != -1);
 
-                File.WriteAllText(file, text);
+                if(file.IndexOf(from, 0, 1, StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
+                    File.Delete(file);
+                    File.WriteAllText(file.Replace(from, toUpper, StringComparison.InvariantCultureIgnoreCase), text);
+                }
+                else
+                {
+                    File.WriteAllText(file, text);
+                }
             }
         }
     }
