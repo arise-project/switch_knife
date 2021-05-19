@@ -34,10 +34,10 @@ namespace SwitchKnifeApp
                 }
                 while (index != -1);
 
-                if(file.IndexOf(from, 0, 1, StringComparison.InvariantCultureIgnoreCase) != -1)
+                if(file.Contains(from, StringComparison.InvariantCultureIgnoreCase))
                 {
                     File.Delete(file);
-                    File.WriteAllText(file.Replace(from, toUpper, StringComparison.InvariantCultureIgnoreCase), text);
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(file), file.Replace(Path.GetFileName(from), toUpper, StringComparison.InvariantCultureIgnoreCase)), text);
                 }
                 else
                 {
