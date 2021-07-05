@@ -60,6 +60,10 @@ namespace SwitchKnifeApp
                 if(languages.Any(l => l == segments[0]))
                 {
                     lang = segments[0];
+                    if(segments.Count() < 2)
+                    {
+                        continue;
+                    }
                     app = segments[1];
                 }
                 else
@@ -85,7 +89,10 @@ namespace SwitchKnifeApp
                     {
                         var pair = segments[2].Split('-');
                         ext1 = formats.FirstOrDefault(f => pair[0] == f) ?? ext1;
-                        ext2 = formats.FirstOrDefault(f => pair[2] == f) ?? ext1;
+                        if(pair.Length > 2)
+                        {
+                            ext2 = formats.FirstOrDefault(f => pair[2] == f) ?? ext1;
+                        }
                     }
                     else
                     {
